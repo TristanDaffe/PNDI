@@ -1,0 +1,26 @@
+﻿  Principal.c
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(171,16): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'char (*)[100]' sont différents
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(171,11): warning C4024: 'fgets' : types différents pour le paramètre formel et réel 1
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(187,16): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'char (*)[1000]' sont différents
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(187,11): warning C4024: 'fgets' : types différents pour le paramètre formel et réel 1
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 1 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 2 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 3 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 4 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 5 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 6 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 7 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 8 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 9 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): warning C4477: 'sscanf_s' : la chaîne de format '%f' nécessite un argument de type 'float *', mais l'argument variadique 10 est de type 'double *'
+D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\Data\Principal.c(189,20): message : utilisez '%lf' dans la chaîne de format
+  Data.vcxproj -> D:\2.Deuxieme_IG\Git\PNDI\projet\phase 1\source\Data\x64\Debug\Data.exe
