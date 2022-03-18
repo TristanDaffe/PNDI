@@ -2,15 +2,7 @@
 *.d
 
 #folder
-données/
-.vs/
-Debug/
-
-#vs 
-*.sln
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
+data/
 
 # Object files
 *.o

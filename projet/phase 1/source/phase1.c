@@ -3,10 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define DATA_SUBJECT "../../../données/data_subjects_info.csv"
-#define DATA "../../../données/A_DeviceMotion_data/A_DeviceMotion_data/"
-#define TRAIN_SET "../../../trainSet.csv"
-#define TEST_SET "../../../testSet.csv"
+#define DATA_SUBJECT "../data/data_subjects_info.csv"
+#define DATA "../data/A_DeviceMotion_data/A_DeviceMotion_data/"
+#define TRAIN_SET "../trainSet.csv"
+#define TEST_SET "../testSet.csv"
 
 
 #define NB_Subject  24
@@ -67,7 +67,7 @@ void main() {
         fopen_s(&trainSet, TRAIN_SET, "w");
         fopen_s(&testSet, TEST_SET, "w");
         if (trainSet == NULL || testSet == NULL)
-            printf("erreur création file trainset / testset");
+            printf("erreur crï¿½ation file trainset / testset");
         else {
             fprintf(trainSet, "%s; %s; %s", "mouvement", "gender", "index");
             fprintf(testSet, "%s; %s; %s", "mouvement", "gender", "index");
@@ -76,7 +76,7 @@ void main() {
             writeTilteVacc(testSet);
 
             int index = 1;
-            //permet la répartition entre trainSet et testSet (+- 90 - 10 %)
+            //permet la rï¿½partition entre trainSet et testSet (+- 90 - 10 %)
             int iSubjectForTest = 0;
 
             //boucle de parcour de chaque file
@@ -109,10 +109,10 @@ void main() {
                     else
                         fileToWrite = trainSet;
 
-                    //passe à la ligne pour le Subject
+                    //passe ï¿½ la ligne pour le Subject
                     fprintf(fileToWrite, "%s", "\n");
 
-                    //écrit le type de mouvement
+                    //ï¿½crit le type de mouvement
                     fprintf(fileToWrite, "%s;", mouvement);
 
                     //colonne genre
@@ -122,7 +122,7 @@ void main() {
 
                     FILE* dataFile;
 
-                    //crée le chemin vers le file contenant les données
+                    //crï¿½e le chemin vers le file contenant les donnï¿½es
                     char code[3];
                     sprintf_s(code, sizeof(code), "%d", subjects[iSubject].code);
                     char pathDataFile[100] = "";
@@ -134,7 +134,7 @@ void main() {
 
                     fopen_s(&dataFile, pathDataFile, "r");
                     if (dataFile == NULL)
-                        printf("erreur ouverture du fichier de données");
+                        printf("erreur ouverture du fichier de donnï¿½es");
                     else {
                         int i = 0;
                         Data data = readDataBase(dataFile);
