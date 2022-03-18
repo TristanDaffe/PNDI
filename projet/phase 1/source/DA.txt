@@ -1,15 +1,3 @@
-//           nbDossiers      nbFichiersTest
-// dws downstair 3             7
-// jog jogging   2             5
-// sit sitting   2             5
-// std stand     2             4
-// ups ups       3             7
-// wlk walk      3             7 
-
-// total         15           36
-
-// => 24 fichiers pour chaque (24 participants)
-
 // structures
 data  { userAcceleration.x
 .     { userAcceleration.y
@@ -26,7 +14,7 @@ PATH = {
 "jog_9/", "jog_16/", 
 "sit_5/", "sit_13/",
 "std_6/", "std_14/",
-"ups_3/", "ups_4/",
+"ups_3/", "ups_4/", "ups_12/",
 "wlk_7/", "wlk_8/", "wlk_15/",
 }
 
@@ -127,18 +115,3 @@ sujets[i] = lire "data_subjects.csv"
 i++
 endwhile
 ------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
