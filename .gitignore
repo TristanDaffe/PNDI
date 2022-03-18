@@ -4,6 +4,12 @@
 #folder
 données/
 .vs/
+Debug/
+
+#vs 
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # Object files
 *.o
