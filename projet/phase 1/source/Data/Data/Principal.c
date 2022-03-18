@@ -5,8 +5,8 @@
 
 #define DATA_SUBJECT "../../../données/data_subjects_info.csv"
 #define DATA "../../../données/A_DeviceMotion_data/A_DeviceMotion_data/"
-#define TRAIN_SET "../../../données/trainSet.csv"
-#define TEST_SET "../../../données/testSet.csv"
+#define TRAIN_SET "../../../trainSet.csv"
+#define TEST_SET "../../../testSet.csv"
 
 
 #define NB_Subject  24
