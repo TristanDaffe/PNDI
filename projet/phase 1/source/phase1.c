@@ -8,7 +8,6 @@
 #define TRAIN_SET "../trainSet.csv"
 #define TEST_SET "..//testSet.csv"
 
-
 #define NB_Subject  24
 #define NB_FILES 15
 #define NB_TEST_SUBJECTS 3
@@ -67,7 +66,7 @@ void main() {
         fopen_s(&trainSet, TRAIN_SET, "w");
         fopen_s(&testSet, TEST_SET, "w");
         if (trainSet == NULL || testSet == NULL)
-            printf("erreur cr�ation file trainset / testset");
+            printf("erreur création file trainset / testset");
         else {
             fprintf(trainSet, "%s; %s; %s", "mouvement", "gender", "index");
             fprintf(testSet, "%s; %s; %s", "mouvement", "gender", "index");
@@ -109,10 +108,10 @@ void main() {
                     else
                         fileToWrite = trainSet;
 
-                    //passe � la ligne pour le Subject
+                    //passe à la ligne pour le Subject
                     fprintf(fileToWrite, "%s", "\n");
 
-                    //�crit le type de mouvement
+                    //écrit le type de mouvement
                     fprintf(fileToWrite, "%s;", mouvement);
 
                     //colonne genre
@@ -122,7 +121,7 @@ void main() {
 
                     FILE* dataFile;
 
-                    //cr�e le chemin vers le file contenant les donn�es
+                    //crée le chemin vers le file contenant les donn�es
                     char code[3];
                     sprintf_s(code, sizeof(code), "%d", subjects[iSubject].code);
                     char pathDataFile[100] = "";
@@ -168,7 +167,7 @@ Subject readSubject(FILE* file) {
     char line[100];
     int trash;
 
-    fgets(&line, sizeof(line), file);
+    fgets(line, sizeof(line), file);
 
     sscanf_s(line, "%d; %d; %d; %d; %d", &subject.code, &trash, &trash, &trash, &subject.gender);
 
@@ -184,9 +183,9 @@ Data readDataBase(FILE* file) {
     fgets(line, sizeof(line), file);
 
     //lis dans le file
-    fgets(&line, sizeof(line), file);
+    fgets(line, sizeof(line), file);
 
-    sscanf_s(line, "%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %lf, %lf, %lf", &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &data.userAccX, &data.userAccY, &data.userAccZ);
+    sscanf_s(line, "%lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &data.userAccX, &data.userAccY, &data.userAccZ);
     return data;
 }
 

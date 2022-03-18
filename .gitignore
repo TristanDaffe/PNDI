@@ -3,6 +3,7 @@
 
 #folder
 data/
+.vscode/
 
 # Object files
 *.o
