@@ -75,7 +75,7 @@ void main() {
             writeTilteVacc(testSet);
 
             int index = 1;
-            //permet la r�partition entre trainSet et testSet (+- 90 - 10 %)
+            //permet la répartition entre trainSet et testSet (+- 90 - 10 %)
             int iSubjectForTest = 0;
 
             //boucle de parcour de chaque file
@@ -121,7 +121,7 @@ void main() {
 
                     FILE* dataFile;
 
-                    //crée le chemin vers le file contenant les donn�es
+                    //crée le chemin vers le file contenant les données
                     char code[3];
                     sprintf_s(code, sizeof(code), "%d", subjects[iSubject].code);
                     char pathDataFile[100] = "";
@@ -133,7 +133,7 @@ void main() {
 
                     fopen_s(&dataFile, pathDataFile, "r");
                     if (dataFile == NULL)
-                        printf("erreur ouverture du fichier de donn�es");
+                        printf("erreur ouverture du fichier de données");
                     else {
                         int i = 0;
                         Data data = readDataBase(dataFile);
@@ -152,6 +152,7 @@ void main() {
                             iSubjectForTest = 0;
                     }
                 }
+//pour le fun du visu
 printf("%s\n", file);
             iFolder++;
             }
