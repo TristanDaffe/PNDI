@@ -2,8 +2,10 @@
 *.d
 
 #folder
-data/
 .vscode/
+.vs/
+data/
+x64/
 
 # Object files
 *.o

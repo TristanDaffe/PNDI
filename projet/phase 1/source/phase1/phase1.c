@@ -3,10 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define DATA_SUBJECT "../data/data_subjects_info.csv"
-#define DATA "../data/A_DeviceMotion_data/A_DeviceMotion_data/"
-#define TRAIN_SET "../trainSet.csv"
-#define TEST_SET "..//testSet.csv"
+#define DATA_SUBJECT "../../data/data_subjects_info.csv"
+#define DATA "../../data/A_DeviceMotion_data/A_DeviceMotion_data/"
+#define TRAIN_SET "../../trainSet.csv"
+#define TEST_SET "../../testSet.csv"
 
 #define NB_Subject  24
 #define NB_FILES 15
@@ -46,7 +46,7 @@ void main() {
     char trash[50];
 
     Subject subjects[NB_Subject];
-    FILE* dataSubject; 
+    FILE* dataSubject;
     fopen_s(&dataSubject, DATA_SUBJECT, "r");
 
     FILE* trainSet;
@@ -66,7 +66,7 @@ void main() {
         fopen_s(&trainSet, TRAIN_SET, "w");
         fopen_s(&testSet, TEST_SET, "w");
         if (trainSet == NULL || testSet == NULL)
-            printf("erreur création file trainset / testset");
+            printf("erreur cr�ation file trainset / testset");
         else {
             fprintf(trainSet, "%s; %s; %s", "mouvement", "gender", "index");
             fprintf(testSet, "%s; %s; %s", "mouvement", "gender", "index");
@@ -75,7 +75,7 @@ void main() {
             writeTilteVacc(testSet);
 
             int index = 1;
-            //permet la répartition entre trainSet et testSet (+- 90 - 10 %)
+            //permet la r�partition entre trainSet et testSet (+- 90 - 10 %)
             int iSubjectForTest = 0;
 
             //boucle de parcour de chaque file
@@ -90,7 +90,7 @@ void main() {
                 strcat_s(file, sizeof(file), dir[iFolder]);
 
                 //gestion de la colonne du type de mouvement
-                strncpy_s(typeMouvement,  sizeof(typeMouvement), dir[iFolder], 3);
+                strncpy_s(typeMouvement, sizeof(typeMouvement), dir[iFolder], 3);
                 defineMouvement(typeMouvement, mouvement);
 
                 FILE* fileToWrite;
@@ -108,10 +108,10 @@ void main() {
                     else
                         fileToWrite = trainSet;
 
-                    //passe à la ligne pour le Subject
+                    //passe � la ligne pour le Subject
                     fprintf(fileToWrite, "%s", "\n");
 
-                    //écrit le type de mouvement
+                    //�crit le type de mouvement
                     fprintf(fileToWrite, "%s;", mouvement);
 
                     //colonne genre
@@ -121,7 +121,7 @@ void main() {
 
                     FILE* dataFile;
 
-                    //crée le chemin vers le file contenant les données
+                    //cr�e le chemin vers le file contenant les donn�es
                     char code[3];
                     sprintf_s(code, sizeof(code), "%d", subjects[iSubject].code);
                     char pathDataFile[100] = "";
@@ -133,7 +133,7 @@ void main() {
 
                     fopen_s(&dataFile, pathDataFile, "r");
                     if (dataFile == NULL)
-                        printf("erreur ouverture du fichier de données");
+                        printf("erreur ouverture du fichier de donn�es");
                     else {
                         int i = 0;
                         Data data = readDataBase(dataFile);
@@ -152,14 +152,14 @@ void main() {
                             iSubjectForTest = 0;
                     }
                 }
-//pour le fun du visu
-printf("%s\n", file);
-            iFolder++;
+                //pour le fun du visu
+                printf("%s\n", file);
+                iFolder++;
             }
             fclose(trainSet);
             fclose(testSet);
         }
-    fclose(dataSubject);
+        fclose(dataSubject);
     }
 }
 
@@ -196,7 +196,7 @@ void writeTilteVacc(FILE* file) {
 }
 
 void defineMouvement(char typeMouvement[], char mouvement[]) {
-    if (strcmp(typeMouvement, "dws") == 0) 
+    if (strcmp(typeMouvement, "dws") == 0)
         strcpy_s(mouvement, 10, "downstair");
     else {
         if (strcmp(typeMouvement, "jog") == 0)
