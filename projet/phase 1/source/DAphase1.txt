@@ -49,7 +49,7 @@ while (iDossier < NB_DOSSIER)
    elseif (typeMouv = "ups")
     mouvement = "upstairs"
    elseif (typeMouv = "wlk")
-    mouvement = "wlaking"
+    mouvement = "walking"
    endif
 // parcours de chaque sujet
  nbSujetsTest = 0
