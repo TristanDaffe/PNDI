@@ -147,7 +147,7 @@ void main() {
                         fclose(dataFile);
                         iSubject++;
                         index++;
-                        iSubjectForTest += 4;
+                        iSubjectForTest += 3;
                         if (iSubjectForTest >= NB_Subject)
                             iSubjectForTest = 0;
                     }
