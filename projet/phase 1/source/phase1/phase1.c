@@ -152,8 +152,6 @@ void main() {
                             iSubjectForTest = 0;
                     }
                 }
-                //pour le fun du visu
-                printf("%s\n", file);
                 iFolder++;
             }
             fclose(trainSet);
