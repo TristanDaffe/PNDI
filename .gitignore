@@ -11,7 +11,7 @@ x64/
 *.sln
 *.vcxproj
 *.vcxproj.filters
-*.vcxproj.users
+*.vcxproj.user
 
 # Object files
 *.o
