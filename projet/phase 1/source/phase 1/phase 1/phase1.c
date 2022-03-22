@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
@@ -153,7 +153,7 @@ void main() {
                 if (iSubjectForTest >= NB_Subject)
                     iSubjectForTest = 0;
                 iFolder++;
-printf("%s \n", file);
+                printf("%s \n", file);
             }
             fclose(trainSet);
             fclose(testSet);
