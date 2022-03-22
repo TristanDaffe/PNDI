@@ -55,15 +55,15 @@ while (iDossier < NB_DOSSIER)
  nbSujetsTest = 0
  iSujet = 0
  while (iSujet  < NB_SUJETS)
- if(nbSujetsTest < NB_SUJET_TEST)
+ if(nbSujetsTest < NB_SUJET_TEST AND iSujet == iSujetPourTest + nbSujetPourTest)
   fichierCible = test.csv
-  iSujetPourTest++
+  nbSujetsTest++
  else
   fichierCible = train.csv
  endif
 
 // ajout du genre
-   ajouter sujets[i].genre à fichierCible 
+   ajouter sujets[iSujet].genre à fichierCible 
    ajouter index à fichierCible 
    fichier = ouvrir (dossier + "sub_"+ (iSujet+1))
 // ajout du Vacc pour chaque unité de temps

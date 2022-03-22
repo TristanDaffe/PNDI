@@ -101,7 +101,7 @@ void main() {
 
                 while (iSubject < NB_Subject) {
                     //choisis si met dans le test ou dans le train
-                    if (nbTestSubjects < NB_TEST_SUBJECTS) {
+                    if (nbTestSubjects < NB_TEST_SUBJECTS && iSubject == iSubjectForTest + nbTestSubjects) {
                         fileToWrite = testSet;
                         nbTestSubjects++;
                     }
@@ -147,11 +147,11 @@ void main() {
                         fclose(dataFile);
                         iSubject++;
                         index++;
-                        iSubjectForTest += 3;
-                        if (iSubjectForTest >= NB_Subject)
-                            iSubjectForTest = 0;
                     }
                 }
+                iSubjectForTest += 3;
+                if (iSubjectForTest >= NB_Subject)
+                    iSubjectForTest = 0;
                 iFolder++;
 printf("%s \n", file);
             }
