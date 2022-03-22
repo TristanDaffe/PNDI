@@ -9,6 +9,9 @@ x64/
 
 *.txt
 *.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.users
 
 # Object files
 *.o
