@@ -7,6 +7,9 @@
 data/
 x64/
 
+*.txt
+*.sln
+
 # Object files
 *.o
 *.ko
