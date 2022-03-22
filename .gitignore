@@ -12,6 +12,7 @@ x64/
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+*.drawio
 
 # Object files
 *.o
@@ -62,3 +63,4 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/projet/phase 2/shéma des fonctions.drawio
