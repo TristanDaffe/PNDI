@@ -57,7 +57,7 @@ void main() {
         //retire les titres de colonne
         fgets(trash, sizeof(trash), dataSubject);
 
-        //lis les info des Subject et les sauvegarde
+        //lit les info des Subject et les sauvegarde
         for (int i = 0; i < NB_Subject; i++) {
             subjects[i] = readSubject(dataSubject);
         }
@@ -74,17 +74,17 @@ void main() {
             writeTilteVacc(testSet);
 
             int index = 1;
-            //permet la r�partition entre trainSet et testSet (+- 90 - 10 %)
+            //permet la repartition entre trainSet et testSet (+- 90 - 10 %)
             int iSubjectForTest = 0;
 
-            //boucle de parcour de chaque file
+            //boucle de parcours de chaque file
             int iFolder = 0;
             while (iFolder < NB_FILES) {
                 char file[100] = "";
                 char mouvement[10] = "";
                 char typeMouvement[5] = "";
 
-                //contient le chemin vers le fichier de data en cour de traitement
+                //contient le chemin vers le fichier de data en cours de traitement
                 strcat_s(file, sizeof(file), DATA);
                 strcat_s(file, sizeof(file), dir[iFolder]);
 
@@ -94,12 +94,12 @@ void main() {
 
                 FILE* fileToWrite;
 
-                //parcour des Subjects
+                //parcours des Subjects
                 int nbTestSubjects = 0;
                 int iSubject = 0;
 
                 while (iSubject < NB_Subject) {
-                    //choisis si met dans le test ou dans le train
+                    //choisit si met dans le test ou dans le train
                     if (nbTestSubjects < NB_TEST_SUBJECTS && iSubject == iSubjectForTest + nbTestSubjects) {
                         fileToWrite = testSet;
                         nbTestSubjects++;
@@ -107,10 +107,10 @@ void main() {
                     else
                         fileToWrite = trainSet;
 
-                    //passe � la ligne pour le Subject
+                    //passe a la ligne pour le Subject
                     fprintf(fileToWrite, "%s", "\n");
 
-                    //�crit le type de mouvement
+                    //ecrit le type de mouvement
                     fprintf(fileToWrite, "%s;", mouvement);
 
                     //colonne genre
@@ -120,7 +120,7 @@ void main() {
 
                     FILE* dataFile;
 
-                    //cr�e le chemin vers le file contenant les donn�es
+                    //cree le chemin vers le file contenant les donnees
                     char code[3];
                     sprintf_s(code, sizeof(code), "%d", subjects[iSubject].code);
                     char pathDataFile[100] = "";
@@ -181,7 +181,7 @@ Data readDataBase(FILE* file) {
     //retire les titres de colonne  
     fgets(line, sizeof(line), file);
 
-    //lis dans le file
+    //lit dans le file
     fgets(line, sizeof(line), file);
 
     sscanf_s(line, "%lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &data.userAccX, &data.userAccY, &data.userAccZ);
