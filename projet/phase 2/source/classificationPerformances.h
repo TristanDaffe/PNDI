@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define NB_MAX_CLASSES 20
+
 /*=====structure=======*/
 
 typedef struct classes Classes;
@@ -23,11 +25,11 @@ void displayAccuracy(int realClasses[], int estimatedClasses[], int nbTests);
 int countTot(int realClasses[], int estimatedClasses[], int nbTests);
 
 //displayConfusionMatrice
-/*
 void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTests);
 int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests);
-Classes* creatMatrice(int realClasses[], int estimatedClasses[], int nbTests, int nbClasses);
-*/
+void createMatrix( int realClasses[], int estimatedClasses[], int nbTests, int nbClasses, int matrix[NB_MAX_CLASSES][NB_MAX_CLASSES]);
+void displayMatrix(int matrix[NB_MAX_CLASSES][NB_MAX_CLASSES], int nbClasses);
+void displaySplitLine(int nbClasses);
 
 /*=====definition=======*/
 
@@ -56,7 +58,7 @@ Classes* calculResult(int realClasses[], int estimatedClasses[], int nbTests) {
 		if (pClass == NULL) {
 			Classes* pNouv = (Classes*)malloc(sizeof(Classes));
 			if (pNouv == NULL) {
-				printf("place m�moire insuffisante");
+				printf("place memoire insuffisante");
 			}
 			else {
 				pNouv->number = realClasses[i];
@@ -101,10 +103,12 @@ int countTot(int realClasses[], int estimatedClasses[], int nbTests) {
 	}
 	return totCorrect;
 }
-/*
+
 void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTests){
 	int maxClasses = maxMouvement(realClasses, estimatedClasses, nbTests);
-	
+	int matrix[NB_MAX_CLASSES][NB_MAX_CLASSES];
+	createMatrix(realClasses, estimatedClasses, nbTests, maxClasses, matrix);
+	displayMatrix(matrix, maxClasses);
 }
 int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests) {
 	int maxClasses = 0;
@@ -114,8 +118,33 @@ int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests) {
 	}
 	return maxClasses;
 }
-
-Classes* creatMatrice(int realClasses[], int estimatedClasses[], int nbTests, int nbClasses){
-
+void createMatrix( int realClasses[], int estimatedClasses[], int nbTests, int nbClasses, int matrix[NB_MAX_CLASSES][NB_MAX_CLASSES]) {
+	for(int i = 0; i < nbClasses; i++){
+		for(int j = 0; j < nbClasses; j++)
+			matrix[i][j] = 0;
+	}
+	for(int i = 0; i < nbTests; i++){
+		matrix[realClasses[i]-1][estimatedClasses[i]-1] ++;
+	}
 }
-*/
+void displayMatrix(int matrix[NB_MAX_CLASSES][NB_MAX_CLASSES], int nbClasses) {
+	//affiche la ligne de titre
+	printf("\t\t|");
+	for(int iColumn = 0; iColumn < nbClasses; iColumn++)
+		printf("\t%d\t|", iColumn+1);
+	printf("\n");
+	displaySplitLine(nbClasses);
+	//affiche la matrice
+	for(int iLine = 0; iLine < nbClasses; iLine++){
+		printf("\t%d\t|", iLine+1);
+		for(int iColumn = 0; iColumn < nbClasses; iColumn++)
+			printf("\t%d\t|", matrix[iLine][iColumn]);
+		printf("\n");
+		displaySplitLine(nbClasses);
+	}
+}
+void displaySplitLine(int nbClasses) {
+	for (int i = 0; i < nbClasses * 20; i++)
+		printf("-");
+	printf("\n");
+}

@@ -7,4 +7,5 @@ void main() {
 
 	displayResultsByClass(realClasses, estimateClasses, 8);
 	displayAccuracy(realClasses, estimateClasses, 8);
+	displayConfusionMatrix(realClasses, estimateClasses, 8);
 }

@@ -3,10 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define DATA_SUBJECT "../../../data/data_subjects_info.csv"
-#define DATA "../../../data/A_DeviceMotion_data/A_DeviceMotion_data/"
-#define TRAIN_SET "../../../trainSet.csv"
-#define TEST_SET "../../../testSet.csv"
+#define DATA_SUBJECT "../data/data_subjects_info.csv"
+#define DATA "../data/A_DeviceMotion_data/A_DeviceMotion_data/"
+#define TRAIN_SET "../trainSet.csv"
+#define TEST_SET "../testSet.csv"
 
 #define NB_Subject  24
 #define NB_FILES 15
