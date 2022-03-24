@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*=====structure=======*/
+
 typedef struct classes Classes;
 struct classes {
 	int number;
@@ -9,7 +11,7 @@ struct classes {
 	Classes* pSuiv;
 };
 
-//prototype
+/*=====prototype=======*/
 
 //displayResultsByClass
 void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTests);
@@ -21,14 +23,23 @@ void displayAccuracy(int realClasses[], int estimatedClasses[], int nbTests);
 int countTot(int realClasses[], int estimatedClasses[], int nbTests);
 
 //displayConfusionMatrice
+/*
 void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTests);
 int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests);
+Classes* creatMatrice(int realClasses[], int estimatedClasses[], int nbTests, int nbClasses);
+*/
 
+/*=====definition=======*/
 
 void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTests) {
-	Classes* pStart = calculResult(realClasses, estimatedClasses, nbTests, &pStart);
+	Classes* pStart = calculResult(realClasses, estimatedClasses, nbTests);
 	displayRow(pStart);
-
+	Classes* pClasses = pStart;
+	while (pClasses != NULL) {
+		Classes* pPrec = pClasses;
+		pClasses = pClasses->pSuiv;
+		free(pPrec);
+	}
 }
 Classes* calculResult(int realClasses[], int estimatedClasses[], int nbTests) {
 	Classes* pStart = NULL;
@@ -41,11 +52,11 @@ Classes* calculResult(int realClasses[], int estimatedClasses[], int nbTests) {
 			pPrec = pClass;
 			pClass = pClass->pSuiv;
 		}
-		// si le chainon n'existe pas encore, on le crée
+		// si le chainon n'existe pas encore, on le crï¿½e
 		if (pClass == NULL) {
 			Classes* pNouv = (Classes*)malloc(sizeof(Classes));
 			if (pNouv == NULL) {
-				printf("place mémoire insuffisante");
+				printf("place mï¿½moire insuffisante");
 			}
 			else {
 				pNouv->number = realClasses[i];
@@ -90,8 +101,9 @@ int countTot(int realClasses[], int estimatedClasses[], int nbTests) {
 	}
 	return totCorrect;
 }
-
+/*
 void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTests){
+	int maxClasses = maxMouvement(realClasses, estimatedClasses, nbTests);
 	
 }
 int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests) {
@@ -102,3 +114,8 @@ int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests) {
 	}
 	return maxClasses;
 }
+
+Classes* creatMatrice(int realClasses[], int estimatedClasses[], int nbTests, int nbClasses){
+
+}
+*/

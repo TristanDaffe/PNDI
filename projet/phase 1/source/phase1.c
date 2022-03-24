@@ -18,7 +18,6 @@ struct data {
     double userAccX;
     double userAccY;
     double userAccZ;
-
 };
 
 typedef struct subject Subject;
