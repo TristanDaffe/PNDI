@@ -144,7 +144,11 @@ void displayMatrix(int matrix[NB_MAX_CLASSES][NB_MAX_CLASSES], int nbClasses) {
 	}
 }
 void displaySplitLine(int nbClasses) {
-	for (int i = 0; i < nbClasses * 20; i++)
-		printf("-");
+	printf("-");
+	for(int j = 0; j < nbClasses+1; j++){
+		for (int i = 0; i < 15; i++)
+			printf("-");
+		printf("|");
+	}
 	printf("\n");
 }
