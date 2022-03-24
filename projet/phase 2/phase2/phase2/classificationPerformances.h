@@ -10,10 +10,19 @@ struct classes {
 };
 
 //prototype
+
+//displayResultsByClass
 void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTests);
 void displayRow(Classes* pStart);
 Classes* calculResult(int realClasses[], int estimatedClasses[], int nbTests);
-//int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests);
+
+//displayAccuracy
+void displayAccuracy(int realClasses[], int estimatedClasses[], int nbTests);
+int countTot(int realClasses[], int estimatedClasses[], int nbTests);
+
+//displayConfusionMatrice
+void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTests);
+int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests);
 
 
 void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTests) {
@@ -21,7 +30,6 @@ void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTest
 	displayRow(pStart);
 
 }
-
 Classes* calculResult(int realClasses[], int estimatedClasses[], int nbTests) {
 	Classes* pStart = NULL;
 	for (int i = 0; i < nbTests; i++) {
@@ -69,11 +77,28 @@ void displayRow(Classes* pStart) {
 	}
 }
 
-//int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests) {
-//	int maxClasses = 0;
-//	for (int i = 0; i < nbTests; i++) {
-//		if (realClasses[i] > maxClasses || estimatedClasses[i] > maxClasses)
-//			maxClasses = (realClasses[i] > estimatedClasses[i] ? realClasses[i] : estimatedClasses[i]);
-//	}
-//	return maxClasses;
-//}
+void displayAccuracy(int realClasses[], int estimatedClasses[], int nbTests) {
+	int tot = countTot(realClasses, estimatedClasses, nbTests);
+	double accuracy = (double)tot / nbTests * 100;
+	printf("L'accuracy est de %.2lf%%\n", accuracy);
+}
+int countTot(int realClasses[], int estimatedClasses[], int nbTests) {
+	int totCorrect = 0;
+	for (int i = 0; i < nbTests; i++) {
+		if (realClasses[i] == estimatedClasses[i])
+			totCorrect++;
+	}
+	return totCorrect;
+}
+
+void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTests){
+	
+}
+int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests) {
+	int maxClasses = 0;
+	for (int i = 0; i < nbTests; i++) {
+		if (realClasses[i] > maxClasses || estimatedClasses[i] > maxClasses)
+			maxClasses = (realClasses[i] > estimatedClasses[i] ? realClasses[i] : estimatedClasses[i]);
+	}
+	return maxClasses;
+}
