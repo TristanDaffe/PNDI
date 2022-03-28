@@ -2,10 +2,10 @@
 
 void main() {
 
-	int realClasses[13] = { 5, 2, 5, 3, 5, 3, 2, 4, 4, 6, 1, 2, 4 };
-	int estimateClasses[13] = { 5, 5, 1, 2, 1, 3, 2, 4, 6, 6, 6, 6, 4, };
-
-	displayResultsByClass(realClasses, estimateClasses, 13);
-	displayAccuracy(realClasses, estimateClasses, 13);
-	displayConfusionMatrix(realClasses, estimateClasses, 13);
+	int realClasses[20] = { 5, 2, 5, 3, 1, 3, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13 ,14, 15 , 20};
+	int estimateClasses[20] = { 5, 5, 1, 2, 1, 3, 2, 4, 10, 10, 15, 1, 17 ,18 ,19 ,15, 6, 13, 15, 20};
+	
+	displayResultsByClass(realClasses, estimateClasses, 10);
+	displayAccuracy(realClasses, estimateClasses, 10);
+	displayConfusionMatrix(realClasses, estimateClasses, 10); 
 }
