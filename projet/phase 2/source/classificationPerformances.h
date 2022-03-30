@@ -34,8 +34,8 @@ double pourc(int num, int denom);
 /*=====definitions=======*/
 
 void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTests) {
-	Classes result[NB_MAX_CLASSES];
 	int nbClasses = maxMouvement(realClasses, estimatedClasses, nbTests);
+	Classes* result = (Classes*) calloc(nbClasses, sizeof(Classes));
 	calculResult(realClasses, estimatedClasses, nbTests, result, nbClasses);
 
 	printf("\tclasse \t|\tbien classes\t|\ttotal\t|\tpourcentage \n");
