@@ -79,14 +79,14 @@ void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTes
 	//affiche la ligne de titre
 	printf("\t\t|");
 	for(int iColumn = 0; iColumn < nbClasses; iColumn++)
-		printf("\t%d\t|", iColumn+1);
+		printf("\t%d \t|", iColumn+1);
 	printf("\n");
 	displaySplitLine(nbClasses);
 	//affiche la matrice
 	for(int iLine = 0; iLine < nbClasses; iLine++){
 		printf("\t%d\t|", iLine+1);
 		for(int iColumn = 0; iColumn < nbClasses; iColumn++)
-			printf("\t%d\t|", matrix[iLine][iColumn]);
+			printf("\t%d \t|", matrix[iLine][iColumn]);
 		printf("\n");
 		displaySplitLine(nbClasses);
 	}
