@@ -25,11 +25,10 @@ int countTot(int realClasses[], int estimatedClasses[], int nbTests);
 void displayConfusionMatrix(int realClasses[], int estimatedClasses[], int nbTests);
 int maxMouvement(int realClasses[], int estimatedClasses[], int nbTests);
 int** createMatrix( int realClasses[], int estimatedClasses[], int nbTests, int nbClasses);
-void displayMatrix(int** matrix, int nbClasses);
 void displaySplitLine(int nbClasses);
 
 //autre 
-double pourc(int num, int denom);
+double perc(int num, int denom);
 
 /*=====definitions=======*/
 
@@ -38,10 +37,10 @@ void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTest
 	Classes* result = (Classes*) calloc(nbClasses, sizeof(Classes));
 	calculResult(realClasses, estimatedClasses, nbTests, result, nbClasses);
 
-	printf("\tclasse \t|\tbien classes\t|\ttotal\t|\tpourcentage \n");
+	printf("\tclasse \t|\tbien classes\t|\ttotal\t|\tpercentage \n");
 	printf("---------------------------------------------------------------------------\n");
 	for(int i = 0; i < nbClasses; i++) {
-		printf("\t %d\t|\t\t%d \t| \t %d \t| \t %.2lf%% \n", i+1, result[i].totCorrect, result[i].total, pourc(result[i].totCorrect, result[i].total));
+		printf("\t %d\t|\t\t%d \t| \t %d \t| \t %.2lf%% \n", i+1, result[i].totCorrect, result[i].total, perc(result[i].totCorrect, result[i].total));
 	}
 }
 void calculResult(int realClasses[], int estimatedClasses[], int nbTests, Classes result[], int nbClasses) {
@@ -55,7 +54,7 @@ void calculResult(int realClasses[], int estimatedClasses[], int nbTests, Classe
 
 void displayAccuracy(int realClasses[], int estimatedClasses[], int nbTests) {
 	int tot = countTot(realClasses, estimatedClasses, nbTests);
-	printf("L'accuracy est de %.2lf%%\n", pourc(tot, nbTests));
+	printf("L'accuracy est de %.2lf%%\n", perc(tot, nbTests));
 }
 int countTot(int realClasses[], int estimatedClasses[], int nbTests) {
 	int totCorrect = 0;
@@ -113,7 +112,7 @@ void displaySplitLine(int nbClasses) {
 	printf("\n");
 }
 
-double pourc(int num, int denom){
+double perc(int num, int denom){
 	if(denom != 0)
 		return (double)num / denom * 100;
 	else
