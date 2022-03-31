@@ -45,12 +45,6 @@ void displayResultsByClass(int realClasses[], int estimatedClasses[], int nbTest
 	}
 }
 void calculResult(int realClasses[], int estimatedClasses[], int nbTests, Classes result[], int nbClasses) {
-	//initialise les cellules nécessaire à 0
-	for (int i = 0; i < nbClasses; i++) {
-		result[i].totCorrect = 0;
-		result[i].total = 0;
-	}
-
 	//traite les tableaux 
 	for(int i = 0; i < nbTests; i++){
 		result[realClasses[i]-1].total++;
