@@ -1,0 +1,84 @@
+trainSetPAth = "../../phase 1/trainSet.csv"
+fiModelPath= "../fiModel.csv"
+
+ecart type = moyenne des carrés - carré des moyennes
+
+//structures
+dataDixiemeSeconde {
+.    totVacc
+.    totCarreVacc
+.    totLigne
+}
+
+module(Principal; trainsetPath;)
+---*
+ouvrir traineSet.csv
+cree fiModel.csv
+module(initFiModel; fiModel;)
+
+iLigne = 1
+// parcours du fichier complet
+while( !feof(trainset))
+mouvement = lire  mouvement dans trainset
+module(initDatasDixiemeSeconde;; datasDixiemeSeconde)
+totGenerale = 0
+nbTot = 0
+while( mouvement == lire  mouvement dans trainset)
+ iColonne = 0
+// parcours de chaque colonne de dixieme de seconde
+ vacc = lire case [iLigne][iColonne+3]
+ while( vacc != null)
+// structure
+  datasDixiemeSeconde[iColonne].totVacc += vacc
+  datasDixiemeSeconde[iColonne].totCarreVacc += vacc * vacc
+  datasDixiemeSeconde[iColonne].totLigne++
+// moyenne generale
+  totGenerale += vacc
+  nbTot++
+// dixieme de seconde suivant
+  iColonne++
+  vacc = lire case [iLigne][iColonne+3]
+ endwhile
+iLigne++
+endwhile
+ i = 0
+// écrit la moyennes
+ ecrire \n dans fiModel.csv
+ ecrire mouvement dans fiModel.csv
+ while( i < 600 &&  datasDixiemeSeconde[i].totVacc != null)
+  ecrire datasDixiemeSeconde[i].totVacc / datasDixiemeSeconde[i].totLigne dans fiModel.csv
+ endwhile
+// écrit la ecart types
+ ecrire \n dans fiModel.csv
+ ecrire mouvement dans fiModel.csv
+ i = 0
+ while( i < 600 &&  datasDixiemeSeconde[i].totCarreVacc!= null)
+  ecrire datasDixiemeSeconde[i].totCarreVacc / datasDixiemeSeconde[i].totLigne - datasDixiemeSeconde[i].totVacc / datasDixiemeSeconde[i].totLigne dans fiModel
+ endwhile
+// écrit moyennes générale
+  ecrire \n dans fiModel.csv
+  ecrire mouvement dans fiModel.csv
+  ecrire totGenerale / nbTot dans fiModel.csv
+
+endwhile
+
+------
+module(initFiModel; fiModel;)
+---*
+ecrire mouvement dans foModel
+i = 0
+while(i < 600)
+ ecrire "Vacc" dans fiModel
+endwhile
+------
+module(initDatasDixiemeSeconde;; datasDixiemeSeconde)
+---*
+dataDixièmeSeconde = ARRAY(600)
+i = 0 
+while (i < 600)
+dataDixièmeSeconde[i].totVacc = 0
+dataDixièmeSeconde[i].totCarreVacc = 0
+dataDixièmeSeconde[i].totLigne = 0
+i++
+endwhile
+------
