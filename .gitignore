@@ -7,7 +7,6 @@
 data/
 x64/
 
-*.txt
 *.sln
 *.vcxproj
 *.vcxproj.filters
