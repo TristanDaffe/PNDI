@@ -11,10 +11,11 @@ typedef struct dataDixiemeSeconde DataDixiemeSeconde;
 struct dataDixiemeSeconde{
     double totVacc;
     double totSquareVacc;
-    int nbLine;
+    int nbVacc;
 };
 
 void initFiModel(FILE* fiModel);
+void writeData(FILE* file, char mouvement[], DataDixiemeSeconde data[], double totVacc, int nbVacc);
 
 void main(void){
     FILE* fiModel;
@@ -28,12 +29,6 @@ void main(void){
         printf("erreur ouverture des fichier\n");
     }
     else{
-    //utilisé pour la moyenne global
-        //nombre de ligne pour le mouvement
-        double totMovement = 0;
-        //somme des vacc pour ce mouvement
-        int totNbVacc = 0;
-
         char movementType[20];
         char currentMovement[20];
         double vacc;
@@ -46,23 +41,28 @@ void main(void){
         for(int i = 0; i < TIME_FOR_A_MIN; i++){
             data[i].totVacc = 0;
             data[i].totSquareVacc = 0;
-            data[i].nbLine = 0;
+            data[i].nbVacc = 0;
         }
-
 
         //supprime la ligne des titres
         fgets(line, sizeof(line), trainSet);
         //récupere la première ligne de données
         fgets(line, sizeof(line), trainSet);
 
-        while(!feof(trainSet)){
-        //lis le titre du mouvement en cours
+        while(!feof(trainSet)){         
+            //lis le titre du mouvement en cours
             token = strtok_s(line, ";", &nextToken);
             strcpy(currentMovement, token);
-    printf("%s\n", currentMovement);
-    printf("[");
+
+            //utilisé pour la moyenne global
+            //nombre de ligne pour le mouvement
+            int totalNbVacc = 0;
+            //somme des vacc pour ce mouvement
+            double totAllVacc = 0;
+
+printf("%s  \t[", currentMovement);
             do{
-    printf("|");
+printf("|");
                 //passe la colonne d'index et du genre
                 token = strtok_s(NULL, ";", &nextToken);
                 token = strtok_s(NULL, ";", &nextToken);
@@ -70,46 +70,30 @@ void main(void){
                 int iColumn = 0;
                 //récupere les Vacc de la ligne
                 token = strtok_s(NULL, ";", &nextToken);
+                //traite les Vacc de la lignes dans line
                 while(iColumn < TIME_FOR_A_MIN && token != NULL){
                     sscanf_s(token, "%lf", &vacc);
                     data[iColumn].totVacc += vacc;
                     data[iColumn].totSquareVacc += vacc * vacc;
-                    data[iColumn].nbLine++;
-
-                    totNbVacc += vacc;
-                    totMovement++;
-                    
+                    data[iColumn].nbVacc++;
+                    totAllVacc += vacc;
+                    totalNbVacc++; 
                     iColumn++;
                     token = strtok_s(NULL, ";", &nextToken);
                 }
             //passe a la ligne suivante
                 fgets(line, sizeof(line), trainSet);
+            //récupère le type de mouvement
                 token = strtok_s(line, ";", &nextToken);
                 strcpy(movementType, token);
             }while(strcmp(movementType, currentMovement) == 0 && !feof(trainSet));
-    printf("]\n");
-        //ecriture des vacc dans fiModel
-            fprintf(fiModel, "%c", '\n');
-            //ecriture des moyennes
-            fprintf(fiModel, "%s;", currentMovement);
-            for(int i = 0; i < TIME_FOR_A_MIN; i++)
-                fprintf(fiModel, "%lf;", data[i].totVacc / data[i].nbLine);
-            fprintf(fiModel, "%c", '\n');    
-            //ecriture des ecart types
-            fprintf(fiModel, "%s;", currentMovement);
-            for(int i = 0; i < TIME_FOR_A_MIN; i++){
-                double standartDeviation = data[i].totSquareVacc / data[i].nbLine - data[i].totVacc / data[i].nbLine;
-                fprintf(fiModel, "%lf;", standartDeviation);
-            }
-            fprintf(fiModel, "%c", '\n');
-            //écriture de la moyenne générale
-            fprintf(fiModel, "%s;", currentMovement);
-            fprintf(fiModel, "%lf;", totNbVacc / totMovement);
-            fprintf(fiModel, "%c", '\n');
 
+printf("]\n");
+            //ecrit les données dans fiModel
+            writeData(fiModel, currentMovement, data, totAllVacc, totalNbVacc);
+            //passe a la ligne suivante d'un nouveau mouvement
             fgets(line, sizeof(line), trainSet);
         }
-
         fclose(trainSet);
         fclose(fiModel);
     }
@@ -120,4 +104,28 @@ void initFiModel(FILE* fiModel){
     for(int i = 0; i < TIME_FOR_A_MIN; i++)
         fprintf(fiModel, "%s;", "Vacc");
     fprintf(fiModel, "%s", "\n");
+}
+
+void writeData(FILE* file, char mouvement[], DataDixiemeSeconde data[], double totVacc, int nbVacc){
+    fprintf(file, "%c", '\n');
+
+    //ecriture des moyennes
+    fprintf(file, "%s;", mouvement);
+    for(int i = 0; i < TIME_FOR_A_MIN; i++)
+        fprintf(file, "%lf;", data[i].totVacc / data[i].nbVacc);
+    fprintf(file, "%c", '\n');  
+
+    //ecriture des ecart types
+    fprintf(file, "%s;", mouvement);
+    for(int i = 0; i < TIME_FOR_A_MIN; i++){
+        double standartDeviation = data[i].totSquareVacc / data[i].nbVacc - data[i].totVacc / data[i].nbVacc;
+        fprintf(file, "%lf;", standartDeviation);
+    }
+    fprintf(file, "%c", '\n');
+
+    //écriture de la moyenne générale
+    fprintf(file, "%s;", mouvement); //peut mettre "moyennes générale" plutot que le mouvement ?
+    fprintf(file, "%lf;", totVacc / nbVacc);
+
+    fprintf(file, "%c", '\n');
 }
