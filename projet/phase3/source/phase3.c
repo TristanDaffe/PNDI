@@ -59,8 +59,10 @@ void main(void){
         //lis le titre du mouvement en cours
             token = strtok_s(line, ";", &nextToken);
             strcpy(currentMovement, token);
-
+    printf("%s\n", currentMovement);
+    printf("[");
             do{
+    printf("|");
                 //passe la colonne d'index et du genre
                 token = strtok_s(NULL, ";", &nextToken);
                 token = strtok_s(NULL, ";", &nextToken);
@@ -84,9 +86,8 @@ void main(void){
                 fgets(line, sizeof(line), trainSet);
                 token = strtok_s(line, ";", &nextToken);
                 strcpy(movementType, token);
-    printf("%s", currentMovement);
             }while(strcmp(movementType, currentMovement) == 0 && !feof(trainSet));
-
+    printf("]\n");
         //ecriture des vacc dans fiModel
             fprintf(fiModel, "%c", '\n');
             //ecriture des moyennes
