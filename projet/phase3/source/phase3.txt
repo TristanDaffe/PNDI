@@ -12,56 +12,48 @@ dataDixiemeSeconde {
 
 module(Principal; trainsetPath;)
 ---*
-ouvrir traineSet.csv
+ouvrir traineSet.csv en lecture
 cree fiModel.csv
+
+if(trainSet == NULL || fiModel == NULL
+ sortir "erreur ouverture des fichiers"
+else
 module(initFiModel; fiModel;)
 
-iLigne = 1
 // parcours du fichier complet
 while( !feof(trainset))
-mouvement = lire  mouvement dans trainset
-module(initDatasDixiemeSeconde;; datasDixiemeSeconde)
+module(initDatas;; datas)
 totGenerale = 0
 nbTot = 0
-while( mouvement == lire  mouvement dans trainset)
+line = lire ligne dans trainSet
+currentmovement= lire "mouvement" dans line 
+movement = currentmovement
+while( movement == currentMovemet AND !feof(trainSet))
+ passer "index" dans line
+ passer "genre" dans line
  iColonne = 0
 // parcours de chaque colonne de dixieme de seconde
- vacc = lire case [iLigne][iColonne+3]
+ vacc = lire "Vacc" dans case 
  while( vacc != null)
 // structure
-  datasDixiemeSeconde[iColonne].totVacc += vacc
-  datasDixiemeSeconde[iColonne].totCarreVacc += vacc * vacc
-  datasDixiemeSeconde[iColonne].totLigne++
+  datas[iColonne].totVacc += vacc
+  datas[iColonne].totCarreVacc += vacc * vacc
+  datas[iColonne].totLigne++
 // moyenne generale
   totGenerale += vacc
   nbTot++
 // dixieme de seconde suivant
   iColonne++
-  vacc = lire case [iLigne][iColonne+3]
+  vacc = lire "Vacc" dans case 
  endwhile
-iLigne++
+ line = lire ligne dans trainSet
+ currentmovement= lire "mouvement" dans line 
 endwhile
- i = 0
-// écrit la moyennes
- ecrire \n dans fiModel.csv
- ecrire mouvement dans fiModel.csv
- while( i < 600 &&  datasDixiemeSeconde[i].totVacc != null)
-  ecrire datasDixiemeSeconde[i].totVacc / datasDixiemeSeconde[i].totLigne dans fiModel.csv
- endwhile
-// écrit la ecart types
- ecrire \n dans fiModel.csv
- ecrire mouvement dans fiModel.csv
- i = 0
- while( i < 600 &&  datasDixiemeSeconde[i].totCarreVacc!= null)
-  ecrire datasDixiemeSeconde[i].totCarreVacc / datasDixiemeSeconde[i].totLigne - datasDixiemeSeconde[i].totVacc / datasDixiemeSeconde[i].totLigne dans fiModel
- endwhile
-// écrit moyennes générale
-  ecrire \n dans fiModel.csv
-  ecrire mouvement dans fiModel.csv
-  ecrire totGenerale / nbTot dans fiModel.csv
-
+ module(writeData; fiModel, data[], totVacc, nbVacc;) 
 endwhile
-
+ fermer trainSet
+ fermer fiModel
+endif
 ------
 module(initFiModel; fiModel;)
 ---*
@@ -71,14 +63,37 @@ while(i < 600)
  ecrire "Vacc" dans fiModel
 endwhile
 ------
-module(initDatasDixiemeSeconde;; datasDixiemeSeconde)
+
+module(initDatas;; datas)
 ---*
-dataDixièmeSeconde = ARRAY(600)
+datas= ARRAY(600)
 i = 0 
 while (i < 600)
-dataDixièmeSeconde[i].totVacc = 0
-dataDixièmeSeconde[i].totCarreVacc = 0
-dataDixièmeSeconde[i].totLigne = 0
+datas[i].totVacc = 0
+datas[i].totCarreVacc = 0
+datas[i].totLigne = 0
 i++
 endwhile
+------
+
+module(writeData; file, data[], totVacc, nbVacc;)
+---*
+ i = 0
+// écrit la moyennes
+ ecrire \n dans file
+ ecrire mouvement dans file
+ while( i < 600 &&  datasDixiemeSeconde[i].totVacc != null)
+  ecrire datasDixiemeSeconde[i].totVacc / datasDixiemeSeconde[i].totLigne dans file
+ endwhile
+// écrit la ecart types
+ ecrire \n dans file
+ ecrire mouvement dans file
+ i = 0
+ while( i < 600 &&  datasDixiemeSeconde[i].totCarreVacc!= null)
+  ecrire datasDixiemeSeconde[i].totCarreVacc / datasDixiemeSeconde[i].totLigne - datasDixiemeSeconde[i].totVacc / datasDixiemeSeconde[i].totLigne dans file
+ endwhile
+// écrit moyennes générale
+  ecrire \n dans file
+  ecrire mouvement dans file
+  ecrire totGenerale / nbTot dans file
 ------
