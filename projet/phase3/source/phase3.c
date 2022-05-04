@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define FI_MODEL_PATH "../fimodel.csv"
 #define TRAIN_SET_PATH "../../phase1/trainSet.csv"
@@ -60,7 +61,7 @@ void main(void){
             //somme des vacc pour ce mouvement
             double totAllVacc = 0;
 
-printf("%s  \t[", currentMovement);
+printf("%s\n\t[", currentMovement);
             do{
 printf("|");
                 //passe la colonne d'index et du genre
@@ -118,7 +119,7 @@ void writeData(FILE* file, char mouvement[], DataDixiemeSeconde data[], double t
     //ecriture des ecart types
     fprintf(file, "%s;", mouvement);
     for(int i = 0; i < TIME_FOR_A_MIN; i++){
-        double standartDeviation = data[i].totSquareVacc / data[i].nbVacc - data[i].totVacc / data[i].nbVacc;
+        double standartDeviation = sqrt(data[i].totSquareVacc / data[i].nbVacc - (data[i].totVacc / data[i].nbVacc * data[i].totVacc / data[i].nbVacc));
         fprintf(file, "%lf;", standartDeviation);
     }
     fprintf(file, "%c", '\n');
