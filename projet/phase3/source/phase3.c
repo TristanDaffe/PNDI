@@ -108,8 +108,6 @@ void initFiModel(FILE* fiModel){
 }
 
 void writeData(FILE* file, char mouvement[], DataDixiemeSeconde data[], double totVacc, int nbVacc){
-    fprintf(file, "%c", '\n');
-
     //ecriture des moyennes
     fprintf(file, "%s;", mouvement);
     for(int i = 0; i < TIME_FOR_A_MIN; i++)
@@ -125,8 +123,7 @@ void writeData(FILE* file, char mouvement[], DataDixiemeSeconde data[], double t
     fprintf(file, "%c", '\n');
 
     //écriture de la moyenne générale
-    fprintf(file, "%s;", mouvement); //peut mettre "moyennes générale" plutot que le mouvement ?
+    fprintf(file, "%s;", mouvement);
     fprintf(file, "%lf;", totVacc / nbVacc);
-
     fprintf(file, "%c", '\n');
 }
