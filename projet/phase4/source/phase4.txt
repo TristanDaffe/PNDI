@@ -11,7 +11,7 @@ NB_TESTS 1000
 NB_MOVEMENTS 6
 
 FIMODEL_PATH "../../phase3/fimodel.csv"
-TEST_SET_PATH "../../phase2/testSet.csv"
+TEST_SET_PATH "../../phase1/testSet.csv"
 
 module(MonModule;;)
 ---*
@@ -24,7 +24,7 @@ estimatedClasses= new array(NB_TESTS)
 // module pour lire fiModel et stocker dans models
 module(readModel; fiModel; models)
 
-//supprime la lignes de titres
+// supprime la lignes de titres
 line = lire ligne dans testSet
 int i = 0
  while (i < NB_TESTS && !feof(trainSet))
@@ -102,7 +102,7 @@ while (!feof(file))
  line = lire ligne dans file
  token = strtok(line, ";")
  models[i].type = token
-//récupère les vacc moyennes
+// récupère les vacc moyennes
  iVacc = 0
  while(iVacc < TIME_ONE_MINUTE)
   token = strtok(line, ";")
@@ -196,4 +196,4 @@ while (i < NB_MOVEMENTD)
  endif
  i++
 endwhile
-------  
+------
