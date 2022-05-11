@@ -117,7 +117,7 @@ void writeData(FILE* file, char mouvement[], DataDixiemeSeconde data[], double t
     //ecriture des ecart types
     fprintf(file, "%s;", mouvement);
     for(int i = 0; i < TIME_FOR_A_MIN; i++){
-        double standartDeviation = sqrt(data[i].totSquareVacc / data[i].nbVacc - (data[i].totVacc / data[i].nbVacc * data[i].totVacc / data[i].nbVacc));
+        double standartDeviation = sqrt(data[i].totSquareVacc / data[i].nbVacc - pow(data[i].totVacc / data[i].nbVacc, 2));
         fprintf(file, "%lf;", standartDeviation);
     }
     fprintf(file, "%c", '\n');
