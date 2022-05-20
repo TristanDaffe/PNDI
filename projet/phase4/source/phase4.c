@@ -4,9 +4,8 @@
 
 #include "classificationPerformances.h"
 
-#define FIMODEL_PATH "../../phase3/fimodel.csv"
 #define TEST_SET_PATH "../../phase1/testSet.csv"
-
+#define FIMODEL_PATH "../../phase3/fimodel.csv"
 
 #define TIME_ONE_MINUTE 600
 #define NB_TESTS 45

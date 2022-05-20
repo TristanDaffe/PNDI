@@ -1,24 +1,9 @@
-//           nbDossiers      nbFichiersTest
-// dws downstair 3             7
-// jog jogging   2             5
-// sit sitting   2             5
-// std stand     2             4
-// ups ups       3             7
-// wlk walk      3             7 
-
-// total         15           36
-
-// => 24 fichiers pour chaque (24 participants)
-
 // structures
 data  { userAcceleration.x
 .     { userAcceleration.y
 .     { userAcceleration.z
 
 sujet { code
-.     { weight
-.     { heigth
-.     { age
 .     { gender
 
 PATH = {
@@ -30,100 +15,154 @@ PATH = {
 "wlk_7/", "wlk_8/", "wlk_15/",
 }
 
+DATA_SUBJECT "../data/data_subjects_info.csv"
+DATA "../data/A_DeviceMotion_data/A_DeviceMotion_data/"
+TRAIN_SET "../trainSet.csv"
+TEST_SET "../testSet.csv"
+
 NB_SUJETS 24
-NB_DOSSIER 15
+NB_FORLDER 15
 NB_SUJET_TEST 3
-TEMPS_NESS_1_MIN 600
+TIME_ONE_MINUTE 600
 
 module(Principal;;)
 ---*
-créer trainSet.csv
-créer testSet.csv
-index = 0
-iSujetPourTest = 0
-module(ajouterTitre;trainSet.csv;)
-module(ajouterTitre;testSet.csv;)
-module(lisSujets;; sujets[])
+subjects = new Array(NB_SUBJECTS)
+ouvrir DATA_SUBJECT dans dataSubject
 
-// parcours de chaque dossier
-iDossier = 0
-while (iDossier < NB_DOSSIER)
- dossier = PATH[iDossier]
- typeMouv = substring(dossier, 3)
-   if (typeMouv = "dws") 
-    mouvement = "downstair"
-   elseif (typeMouv = "jog")
-     mouvement = "jogging"
-   elseif (typeMouv = "sit")
-    mouvement = "sit down"
-   elseif (typeMouv = "std")
-    mouvement = "stand up"
-   elseif (typeMouv = "ups")
-    mouvement = "upstairs"
-   elseif (typeMouv = "wlk")
-    mouvement = "walking"
-   endif
-// parcours de chaque sujet
- nbSujetsTest = 0
- iSujet = 0
- while (iSujet  < NB_SUJETS)
- if(nbSujetsTest < NB_SUJET_TEST AND iSujet = iSujetPourTest + nbSujetsTest )
-  fichierCible = test.csv
-  nbSujetsTest ++
- else
-  fichierCible = train.csv
- endif
+if (dataSubject == null)
+ sortir "erreur ouverture du fichier"
+else
+// retire les titres de colonne
+fgets(trash, sizeof(trash), dataSubject);
 
-// ajout du genre
-   ajouter sujets[iSujet].genre à fichierCible 
-   ajouter index à fichierCible 
-   fichier = ouvrir (dossier + "sub_"+ (iSujet+1))
-// ajout du Vacc pour chaque unité de temps
-   i = 0
-   module(ligneExiste;fichier, i; ligneExiste)
-   while (i < TEMPS_NESS_1_MIN && ligneExiste)
-    module(lisLigne; sujet; data)
-    vAcc = racineCarré( data->x * data->x + data->y * data->y + data->z * data->z)
-    ajouter vAcc à fichierCible 
-   i++  
-   module(ligneExiste;fichier, i; ligneExiste)
-   endwhile 
-
-   iSujet ++
-   index++
-   iSujetPourTest += 4
-   if(iSujetPourTest >= NB_SUJETS)
-    iSujetPourTest = 0
-   endif
- endwhile
- iDossier++
+// lit les info des Subject et les sauvegarde
+i = 0
+while( i < NB_Subject)
+ subjects[i] = readSubject(dataSubject);
+i++
 endwhile
+
+ouvrir TRAIN_SET dans trainSet
+ouvrir TEST_SET dans testSet
+if (trainSet == null OR testSet == null)
+ sortir "erreur création des fichiers"
+else
+ // ecrit 
+fprintf(trainSet, "%s; %s; %s", "mouvement", "gender", "index");
+fprintf(testSet, "%s; %s; %s", "mouvement", "gender", "index");
+
+writeTilteVacc(trainSet);
+writeTilteVacc(testSet);
+
+index = 1
+//permet la repartition entre trainSet et testSet (+- 90 - 10 %)
+iSubjectForTest = 0;
+
+iFolder = 0
+while (i Folder < NB_FOLDER)
+ folder = DATA + PATH[iFolder]
+ module(defineMovement; PATH[iFolder]; movement)
+
+ nbTestSubjects = 0
+ iSubjects = 0
+while (iSubject < NB_SUBJECTS)
+if (nbTestSubjects < NB_TEST_SUBJECTS && iSubject == iSubjectForTest + nbTestSubjects) 
+fileToWrite = testSet;
+nbTestSubjects++;
+else
+fileToWrite = trainSet;
+endif
+//passe a la ligne pour le Subject
+fprintf(fileToWrite, "%s", "\n");
+
+//ecrit le type de mouvement
+fprintf(fileToWrite, "%s;", mouvement);
+
+//colonne genre
+fprintf(fileToWrite, "%d;", subjects[iSubject].gender);
+//colonne index
+fprintf(fileToWrite, "%d;", index);
+
+sprintf_s(code, sizeof(code), "%d", subjects[iSubject].code);
+pathDataFile = folder + "sub_" + code + ".csv"
+
+ouvrir pathDataFile dans dataFile
+
+if (dataFile == null)
+sortir "erreur création fichier"
+else
+ i = 0
+ module(readDataBase; dataFile; data)
+while (i < TIME_ONE_MINUTE AND !feof(dataFile))
+ Vacc = sqrt(data.userAccX * data.userAccX + data.userAccY * data.userAccY + data.userAccZ * data.userAccZ);
+ fprintf(fileToWrite, "%lf;", Vacc);
+ data = readDataBase(dataFile);
+ i++;
+endwhile
+fermer dataFile;
+iSubject++;
+index++;
+endif
+endwhile
+iSubjectForTest += 3;
+if (iSubjectForTest >= NB_SUBJECTS)
+iSubjectForTest = 0;
+endif
+iFolder++;
+endwhile
+fermer trainSet;
+fermer testSet;
+endif
+fermer dataSubject;
+endif
+
 ------
 
-
-module(ajouterTitre; fichier;)
+module(readSubject; file; subject)
 ---*
-ajoute colonne "Mouvement" dans fichier
-ajoute colonne "Genre" dans fichier
-ajoute colonne "Index" dans fichier
+// lis les infos du sujet
+
+line[100];
+trash;
+fgets(line, sizeof(line), file);
+
+sscanf_s(line, "%d; %d; %d; %d; %d", &subject.code, &trash, &trash, &trash, &subject.gender);
+------
+
+module(readDataBase; file; data)
+---*
+// retire les titres de colonne  
+fgets(line, sizeof(line), file);
+// lit dans le file
+fgets(line, sizeof(line), file);
+
+sscanf_s(line, "%lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf", &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &trash, &data.userAccX, &data.userAccY, &data.userAccZ);    
+------
+
+module(writeTitleVacc; file;)
+---*
+// écrit 600 titres "Vacc"
 i = 0
-while (i < TEMPS_NESS_1_MIN )
- ajoute colonne "Vacc" dans fichier
+while(i < TIME_FOR_A_MIN)
+ fprintf(file, "; %s", "Vacc");
  i++
 endwhile
 ------
 
-module(lisLigne;fichier; data)
+module(defineMovement; typeMovement; movement)
 ---*
-// colonne userAcceleration.x, y, z
-data = lire fichier
-------
-
-module(lisSujets;; sujets[])
----*
-i = 0
-while (i < NB_SUJETS)
-sujets[i] = lire "data_subjects.csv"
-i++
-endwhile
+if (typeMovement == "dws")
+movement = "downstair"
+elseif (typeMovement == "jog")
+movement = "jogging"
+elseif (typeMovement == "sit")
+movement = "sit down"
+elseif (typeMovement == "std")
+movement = "stand up"
+elseif (typeMovement == "ups")
+movement = "upstair"
+elseif (typeMovement == "wlk")
+movement = "walking"
+endif
 ------

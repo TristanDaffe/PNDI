@@ -8,8 +8,8 @@
 #define TRAIN_SET "../trainSet.csv"
 #define TEST_SET "../testSet.csv"
 
-#define NB_Subject  24
-#define NB_FILES 15
+#define NB_SUBJECTS  24
+#define NB_FOLDERS 15
 #define NB_TEST_SUBJECTS 3
 #define TIME_FOR_A_MIN 600
 
@@ -44,7 +44,7 @@ void main() {
     };
     char trash[50];
 
-    Subject subjects[NB_Subject];
+    Subject subjects[NB_SUBJECTS];
     FILE* dataSubject;
     fopen_s(&dataSubject, DATA_SUBJECT, "r");
 
@@ -58,14 +58,14 @@ void main() {
         fgets(trash, sizeof(trash), dataSubject);
 
         //lit les info des Subject et les sauvegarde
-        for (int i = 0; i < NB_Subject; i++) {
+        for (int i = 0; i < NB_SUBJECTS; i++) {
             subjects[i] = readSubject(dataSubject);
         }
 
         fopen_s(&trainSet, TRAIN_SET, "w");
         fopen_s(&testSet, TEST_SET, "w");
         if (trainSet == NULL || testSet == NULL)
-            printf("erreur cr�ation file trainset / testset");
+            printf("erreur création file trainset / testset");
         else {
             fprintf(trainSet, "%s; %s; %s", "mouvement", "gender", "index");
             fprintf(testSet, "%s; %s; %s", "mouvement", "gender", "index");
@@ -77,16 +77,16 @@ void main() {
             //permet la repartition entre trainSet et testSet (+- 90 - 10 %)
             int iSubjectForTest = 0;
 
-            //boucle de parcours de chaque file
+            //boucle de parcours de chaque folder
             int iFolder = 0;
-            while (iFolder < NB_FILES) {
-                char file[100] = "";
+            while (iFolder < NB_FOLDERS) {
+                char folder[100] = "";
                 char mouvement[10] = "";
                 char typeMouvement[5] = "";
 
                 //contient le chemin vers le fichier de data en cours de traitement
-                strcat_s(file, sizeof(file), DATA);
-                strcat_s(file, sizeof(file), dir[iFolder]);
+                strcat_s(folder, sizeof(folder), DATA);
+                strcat_s(folder, sizeof(folder), dir[iFolder]);
 
                 //gestion de la colonne du type de mouvement
                 strncpy_s(typeMouvement, sizeof(typeMouvement), dir[iFolder], 3);
@@ -98,7 +98,7 @@ void main() {
                 int nbTestSubjects = 0;
                 int iSubject = 0;
 
-                while (iSubject < NB_Subject) {
+                while (iSubject < NB_SUBJECTS) {
                     //choisit si met dans le test ou dans le train
                     if (nbTestSubjects < NB_TEST_SUBJECTS && iSubject == iSubjectForTest + nbTestSubjects) {
                         fileToWrite = testSet;
@@ -125,14 +125,14 @@ void main() {
                     sprintf_s(code, sizeof(code), "%d", subjects[iSubject].code);
                     char pathDataFile[100] = "";
 
-                    strcat_s(pathDataFile, 100, file);
+                    strcat_s(pathDataFile, 100, folder);
                     strcat_s(pathDataFile, 100, "sub_");
                     strcat_s(pathDataFile, 100, code);
                     strcat_s(pathDataFile, 100, ".csv");
 
                     fopen_s(&dataFile, pathDataFile, "r");
                     if (dataFile == NULL)
-                        printf("erreur ouverture du fichier de donn�es");
+                        printf("erreur ouverture du fichier de données");
                     else {
                         int i = 0;
                         Data data = readDataBase(dataFile);
@@ -149,10 +149,10 @@ void main() {
                     }
                 }
                 iSubjectForTest += 3;
-                if (iSubjectForTest >= NB_Subject)
+                if (iSubjectForTest >= NB_SUBJECTS)
                     iSubjectForTest = 0;
                 iFolder++;
-                printf("%s \n", file);
+                printf("%s \n", folder);
             }
             fclose(trainSet);
             fclose(testSet);
