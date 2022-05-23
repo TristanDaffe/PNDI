@@ -8,7 +8,13 @@ module(createMatrix; realClasses[], extimatedClasses[], nbTestsn, maxClasses; ma
 module(displayRowMatrix; matrix[0]], NULL;)
 i = 1
 while (i < NB_MAX_CLASSES AND i < nbClasses)
- module(displayRowMatrix; matrix[i]], i+1;)
+ // sort le type du mouvement
+ sortir mouvement +'\t'
+ i = 0
+ while (i < NB_MAX_CLASSES && ligne[i] != NULL)
+ // sort le nombres d'hestimation 
+ sortir ligne[i] + '\t'
+endwhile
 endwhile
 ------
 
@@ -48,17 +54,6 @@ while (i < nbTests)
 endwhile
 ------
 
-module(displayRowMatrix; ligne[], mouvement;)
----*
-// sort le type du mouvement
-sortir mouvement +'\t'
-int i = 0
-while (i < NB_MAX_CLASSES && ligne[i] != NULL)
- // sort le nombres d'hestimation 
- sortir ligne[i] + '\t'
-endwhile
-------
-
 .============================================================================================.
 module(displayAccuracy;realClasses[],estimatedClasses[],nbTests;)
 ---*
@@ -73,7 +68,7 @@ sortir "L'accuracy est de " + accuracy + "%"
 ------
 
 module(countTotCorrect;realClasses[],estimatedClasses[],nbTest;totalCorrect, total)
----
+---*
 totalCorrect = 0
 total = 0
 i = 0
