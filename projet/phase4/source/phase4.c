@@ -2,7 +2,7 @@
 #include <string.h>
 #include <math.h>
 
-#include "classificationPerformances.h"
+#include "../../phase2/source/classificationPerformances.h"
 
 #define TEST_SET_PATH "../../phase1/testSet.csv"
 #define FIMODEL_PATH "../../phase3/fimodel.csv"

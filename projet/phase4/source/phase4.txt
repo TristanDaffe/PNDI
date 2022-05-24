@@ -138,7 +138,7 @@ while (iMovement < NB_MOVEMENTS)
   i = 0
 // calcul la distance euclidienne 
   while (i < TIME_ONE_MINUTE)
-   standartDev += pow((models[iMovement].stds[i] - data[i]), 2)
+   standartDev += pow((models[iMovement].averages[i] - data[i]), 2)
    i++
   endwhile
   standartDev = sqrt(standartDev)
@@ -176,19 +176,19 @@ endwhile
 
 module(EstimationUsingGeneralAverage; models[], data[]; movementUsingGeneralAverage)
 ---*
-// calcule de la moyenne des datas
+// calcule de la moyenne des data
 vaccTot = 0
 nbVacc = 0
 i = 0
 while (i < TIME_ONE_MINUTE)
- vaccTot += datas[i]
+ vaccTot += data[i]
  nbVacc++
  i++
 endwhile
 vaccMiddle = vaccTot / nbVacc
 diffMin = MAX_VALUE
 i = 0
-while (i < NB_MOVEMENTD)
+while (i < NB_MOVEMENTS)
  diff = abs(models[i].globalAvg - vaccMiddle)
  if(diff < diffMin)
   diffMin = diff
